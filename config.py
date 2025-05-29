@@ -8,6 +8,7 @@
 
 import os
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
@@ -16,12 +17,13 @@ class Config:
     """
     SECRET_KEY = os.environ.get("SECRET_KEY") or "f7628218af8b4fb16c375cf31e01c9afa13cdba996d8b7dc5b11d43a6423c5a8"
     WTF_CSRF_SECRET_KEY = "f7628218af8b4fb16c375cf31e01c9afa13cdba996d8b7dc5b11d43a6423c5a8"
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+    'sqlite:///' + os.path.join(basedir, 'app.db')
 
 
 class ProductionConfig(Config):
     """Class contains producation configuration"""
     ENV_TYPE = "Production"
-    SECRET_KEY = Config.SECRET_KEY
 
 
 class DevelopmentConfig(Config):

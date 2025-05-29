@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Welcome to Random Movie Suggestion</title>
+    </head>
+    <body>
+        <div>
+            <h1>Movie Suggestion</h1>
+            <a href="{{ url_for('movie_suggest.index') }}">Movie Suggestion</a>
+            {% if current_user.is_anonymous %}
+            <a href="{{ url_for('movie_suggest.login') }}">Login</a>
+            {% else %}
+            <a href="{{ url_for('movie_suggest.logout') }}">Logout</a>
+            {% endif %}
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>
