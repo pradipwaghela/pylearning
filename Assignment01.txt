@@ -1,0 +1,14 @@
+Q1 ) Check we to make different config for Production Testing Development 
+We can set the FLASK_ENV to diffrent environment 
+We have to created sub class of the config file with following name 
+-ProductionConfig For Production configs 
+-DevelopmentConfig For Development configs 
+-TestingConfig For Testing configs
+
+Q2 ) Find Way to implement decorater for all routes (global decorater)
+
+Q3 ) Follow PEP Standard for coding 
+Q4 ) Variable File Class all file naming convention 
+Q5 ) What is actual name of the __init__() :- Constructor
+Q6 ) All function should follow SOLID principal 
+Q7 ) User defined class should have Constructor getter and setters

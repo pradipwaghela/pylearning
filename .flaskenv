@@ -1,0 +1,5 @@
+FLASK_APP=run.py
+SECRET_KEY="NoUseOfThis"
+FLASK_ENV="Development"
+FLASK_RUN_PORT=5001
+FLASK_RUN_HOST="0.0.0.0"
