@@ -1,0 +1,1 @@
+Lan_Dict = {  "HINDI" : "hi" , "ENGLISH" : "en" , "MARATHI": "mr"}

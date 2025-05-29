@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup as BS
 import requests as re
-Lan_Dict = {  "HINDI" : "hi" , "ENGLISH" : "en" , "MARATHI": "mr"}
+
+from app.constants import Lan_Dict
+
 
 class ScrapeIMDBTitle():
   def __init__(self):
