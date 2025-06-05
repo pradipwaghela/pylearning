@@ -53,5 +53,5 @@ def get_random_movie(ids):
             movie_imdb_rating,
         )
     except Exception as e :
-        print(f"Error while getting movie details of id {random_movie} \n {e}")
+        print(f"Error while getting movie details \n {e}")
         return None
