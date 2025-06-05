@@ -1,5 +1,5 @@
 Q1 ) Seprate files change naming of files and variables write file and function class info - Done 16/05/25
-Q2 ) Implment decorator 
+Q2 ) Implment decorator  -  We can use app.before_reqeust() to add the decorator that will run before every request
 Q3 ) Limit function return variables upto 2 
 Q4 ) Resolve CSRF issue - Done 16/05/25
 Q5 ) Beautify outputs check if there any standard option 

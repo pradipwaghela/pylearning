@@ -1,0 +1,5 @@
+1 ) Find out what is __repr__ 
+2 ) Find out better way to write the routes (Design Patterns)
+3 ) Add before_request for whole flask app
+4 ) Learn basic about session managemnet 
+5 ) Handle errors in application 

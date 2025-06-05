@@ -33,21 +33,25 @@ def get_random_movie(ids):
     Returns:
         tuple : return  movie name,language,geners,creator,IMDB url and IMDB rating  
     """
-    random_movie = random.choice(ids)
-    imdb = IMDB()
-    res = imdb.get_by_id(random_movie)
-    data = json.loads(res)
-    movie_name = data["name"]
-    movie_lan = data["review"]["inLanguage"]
-    movie_genre = data["genre"]
-    movie_creator = data["director"][0]["name"]
-    movie_url = data["url"]
-    movie_imdb_rating = data["rating"]["ratingValue"]
-    return (
-        movie_name,
-        movie_lan,
-        movie_genre,
-        movie_creator,
-        movie_url,
-        movie_imdb_rating,
-    )
+    try : 
+        random_movie = random.choice(ids)
+        imdb = IMDB()
+        res = imdb.get_by_id(random_movie)
+        data = json.loads(res)
+        movie_name = data["name"]
+        movie_lan = data["review"]["inLanguage"]
+        movie_genre = data["genre"]
+        movie_creator = data["director"][0]["name"]
+        movie_url = data["url"]
+        movie_imdb_rating = data["rating"]["ratingValue"]
+        return (
+            movie_name,
+            movie_lan,
+            movie_genre,
+            movie_creator,
+            movie_url,
+            movie_imdb_rating,
+        )
+    except Exception as e :
+        print(f"Error while getting movie details of id {random_movie} \n {e}")
+        return None

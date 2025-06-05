@@ -45,6 +45,7 @@ class ScrapeIMDBTitle:
             return BS(resp.content, "html5lib")
         except Exception as e:
             print(f"Problem while accessing website {e}")
+            return None
 
     def get_imdb_titles(self, lan, geners):
         """
