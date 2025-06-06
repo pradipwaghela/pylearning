@@ -1,0 +1,7 @@
+1 ) Make module for movie suggestion and user
+2 ) Add before_request for whole flask app
+3 ) Implement JWT token - validate token before every request, refresh token
+4 ) Change data base to mongodb
+5 ) Implment logging rotate every day and zip weekly report 
+6 ) Add levels to login 
+7 ) Make constant for every message (error,information,etc)
