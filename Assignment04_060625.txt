@@ -5,3 +5,4 @@
 5 ) Implment logging rotate every day and zip weekly report 
 6 ) Add levels to login 
 7 ) Make constant for every message (error,information,etc)
+8 ) MVC layer data tranfer communication object (Data Transfer Objects (DTOs) )
