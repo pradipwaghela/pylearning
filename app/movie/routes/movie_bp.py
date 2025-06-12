@@ -1,13 +1,13 @@
-"""routes.py
+"""movie_bp.py
 Contains routes of the application
 movie_suggest -> Main blue print
 
 """
 from datetime import datetime, timezone
-from flask import Blueprint , g 
+from flask import Blueprint 
 from flask_login import  login_required ,current_user
 
-from app.controllers import MovieController, UserController
+from app.movie.controllers import MovieController
 from app.extensions import db
 
 movie_suggest = Blueprint("movie_suggest", __name__, template_folder="templates")
@@ -31,19 +31,3 @@ def index():
     """
     return MovieController.get_movie()
 
-
-@movie_suggest.route("/login", methods=["GET", "POST"])
-def login():
-    """Login Route"""
-    return UserController.login()
-
-
-@movie_suggest.route("/register", methods=["GET", "POST"])
-def register():
-    """Signup user route"""
-    return UserController.register()
-
-@movie_suggest.route("/logout")
-def logout():
-    """Logout user route"""
-    return UserController.logout()

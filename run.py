@@ -2,7 +2,7 @@ import os
 
 from app import create_app , db
 
-from app.models import  User 
+from app.user.models import  User 
 
 app = create_app()
 

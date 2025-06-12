@@ -13,7 +13,7 @@ from wtforms.validators import (
     EqualTo,
 )
 
-from app.models import User
+from app.user.models import User
 from app import db
 
 class RegistrationForm(FlaskForm):

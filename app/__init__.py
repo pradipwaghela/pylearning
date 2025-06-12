@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 from flask import Flask
 
-
+import jinja2
 
 from config import ProductionConfig, DevelopmentConfig, TestingConfig
 from app.extensions import db, login, migrate
@@ -35,19 +35,29 @@ def create_app():
 
     elif env_type == "Testing":
         app.config.from_object(TestingConfig)
+    
+    #Load Template
 
     # Import and register blueprints
-    from app.routes import movie_suggest
+    from app.movie.routes import movie_suggest
+    from app.user.routes import user
 
     app.register_blueprint(movie_suggest)
 
+    app.register_blueprint(user)
+    temp_loader = jinja2.ChoiceLoader([
+        app.jinja_loader,
+        jinja2.FileSystemLoader([movie_suggest.template_folder, user.template_folder])
+    ]) 
+    app.jinja_loader = temp_loader
     db.init_app(app)
 
     migrate.init_app(app, db)
 
     login.init_app(app)
     
-    login.login_view = 'movie_suggest.login'
-
+    login.login_view = 'user.login'
+    env = jinja2.Environment(loader=temp_loader)
+    print(f"Template folders {env.get_template('login.html')}")
 
     return app

@@ -1,7 +1,7 @@
 from flask import render_template, flash 
 
-from app.forms import MovieForm
-from app.services import get_movieids, get_random_movie
+from app.movie.forms import MovieForm
+from app.movie.services import get_movieids, get_random_movie
 
 
 class MovieController:

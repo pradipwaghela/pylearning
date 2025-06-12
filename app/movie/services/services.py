@@ -6,7 +6,7 @@ import random
 import json
 from PyMovieDb import IMDB
 
-from app.services.scrape_imdb_titles import ScrapeIMDBTitle
+from app.movie.services.scrape_imdb_titles import ScrapeIMDBTitle
 
 
 def get_movieids(language, geners):

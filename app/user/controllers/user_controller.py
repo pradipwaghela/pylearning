@@ -3,9 +3,9 @@ from flask_login import current_user, login_user, logout_user
 from flask import render_template, flash, redirect, url_for
 import sqlalchemy as sa
 
-from app.forms import LoginForm ,RegistrationForm
+from app.user.forms import LoginForm ,RegistrationForm
 from app.extensions import db
-from app.models import User
+from app.user.models import User
 
 
 class UserController():
