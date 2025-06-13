@@ -10,7 +10,7 @@ from flask_login import  login_required ,current_user
 from app.movie.controllers import MovieController
 from app.extensions import db
 
-movie_suggest = Blueprint("movie_suggest", __name__, template_folder="templates")
+movie_suggest = Blueprint("movie_suggest", __name__)
 
 
 

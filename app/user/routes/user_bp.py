@@ -7,7 +7,7 @@ from flask import Blueprint
 
 from app.user.controllers import UserController
 
-user = Blueprint("user", __name__, template_folder="templates")
+user = Blueprint("user", __name__)
 
 
 @user.route("/login", methods=["GET", "POST"])
@@ -24,3 +24,4 @@ def register():
 @user.route("/logout")
 def logout():
     """Logout user route"""
+    return UserController.logout()

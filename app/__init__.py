@@ -37,19 +37,14 @@ def create_app():
         app.config.from_object(TestingConfig)
     
     #Load Template
-
     # Import and register blueprints
     from app.movie.routes import movie_suggest
     from app.user.routes import user
 
     app.register_blueprint(movie_suggest)
-
+    
     app.register_blueprint(user)
-    temp_loader = jinja2.ChoiceLoader([
-        app.jinja_loader,
-        jinja2.FileSystemLoader([movie_suggest.template_folder, user.template_folder])
-    ]) 
-    app.jinja_loader = temp_loader
+
     db.init_app(app)
 
     migrate.init_app(app, db)
@@ -57,7 +52,6 @@ def create_app():
     login.init_app(app)
     
     login.login_view = 'user.login'
-    env = jinja2.Environment(loader=temp_loader)
-    print(f"Template folders {env.get_template('login.html')}")
+
 
     return app

@@ -21,7 +21,7 @@ class UserController():
             )
             if user is None or not user.check_password(form.password.data):
                 flash("Invalid username or password")
-                return redirect(url_for("movie_suggest.login"))
+                return redirect(url_for("user.login"))
             login_user(user, remember=form.remember_me.data)
             return redirect(url_for("movie_suggest.index"))
         return render_template("login.html", title="Sign In", form=form)
@@ -37,7 +37,7 @@ class UserController():
             db.session.add(user)
             db.session.commit()
             flash("Congratulations, you are now a registered user!")
-            return redirect(url_for("movie_suggest.login"))
+            return redirect(url_for("user.login"))
         return render_template("register.html", title="Register", form=form)
     
     def logout(self):
