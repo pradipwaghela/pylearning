@@ -1,14 +1,12 @@
-from typing import Optional
+import uuid
 
-
-import sqlalchemy as sa
-import sqlalchemy.orm as so
+from flask import jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from bson import objectid
 
 from app.extensions import db , login
 
-class User(UserMixin,db.Model):
+class User():
     """User Model
 
     Args:
@@ -17,19 +15,50 @@ class User(UserMixin,db.Model):
     Returns:
         _type_: _description_
     """
-    id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    username: so.Mapped[str] = so.mapped_column(sa.String(64), index=True,
-                                                unique=True)
-    email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True,
-                                             unique=True)
-    password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
+    def __init__(self) -> None:
+        pass
+
+    def is_authenticated(self):
+        return True
+    def is_active(self):
+        return True
+    def is_anonymous(self):
+        return False
+    def get_id(self):
+        return self._id
     
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+        return generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+    def register(self,username,password,email):
+        
+        if not self.check_user_email(email) and not self.check_user_username(username):
+            user = {
+                '_id' : uuid.uuid4().hex,
+                'username' : username,
+                'email' : email,
+                'password' : self.set_password(password)
+                }
+            
+            if db.users.insert_one(user) :
+                return jsonify({'message' : 'user created'}) , 200
+        else :
+            return jsonify ({"error" : 'Username/email already exists'}),400
 
+    def check_user_username(self,username):
+       
+       if  db.users.find_one({'username' : username}):
+           return True
+       return False
+    
+    def check_user_email(self,email):
+       if  db.users.find_one({'username' : email}):
+           return True
+       return False
+    
     def __repr__(self):
         return f'<User {self.username}>'
     

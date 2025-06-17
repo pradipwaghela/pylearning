@@ -1,11 +1,9 @@
-
-
-from flask_sqlalchemy import SQLAlchemy
+from  flask_pymongo import PyMongo
 from flask_login import LoginManager
 from flask_migrate import Migrate
 
 
-db = SQLAlchemy()
+db = PyMongo()
 login = LoginManager()
 migrate = Migrate()
 
