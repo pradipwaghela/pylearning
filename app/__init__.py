@@ -13,7 +13,7 @@ from flask import Flask
 import jinja2
 
 from config import ProductionConfig, DevelopmentConfig, TestingConfig
-from app.extensions import db, login, migrate
+from app.extensions import mongo
 
 
 def create_app():
@@ -35,7 +35,6 @@ def create_app():
 
     elif env_type == "Testing":
         app.config.from_object(TestingConfig)
-    
     #Load Template
     # Import and register blueprints
     from app.movie.routes import movie_suggest
@@ -45,13 +44,7 @@ def create_app():
     
     app.register_blueprint(user)
 
-    db.init_app(app)
+    mongo.init_app(app)
 
-    migrate.init_app(app, db)
-
-    login.init_app(app)
     
-    login.login_view = 'user.login'
-
-
     return app

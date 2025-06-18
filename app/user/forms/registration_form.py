@@ -14,7 +14,6 @@ from wtforms.validators import (
 )
 
 from app.user.models import User
-from app import db
 
 class RegistrationForm(FlaskForm):
     """
@@ -39,8 +38,7 @@ class RegistrationForm(FlaskForm):
         Args :
             username
         """
-
-        user = db.session.scalar(sa.select(User).where(User.username == username.data))
+        user = User.check_user_username(username.data)
         if user is not None:
             raise ValidationError("Please use a different username.")
 
@@ -52,6 +50,6 @@ class RegistrationForm(FlaskForm):
 
         """
 
-        user = db.session.scalar(sa.select(User).where(User.email == email.data))
+        user = User.check_user_email(email.data)
         if user is not None:
             raise ValidationError("Please use a different email address.")

@@ -3,7 +3,7 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 
 
-db = PyMongo()
+mongo = PyMongo()
 login = LoginManager()
 migrate = Migrate()
 

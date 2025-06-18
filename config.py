@@ -17,8 +17,7 @@ class Config:
     """
     SECRET_KEY = os.environ.get("SECRET_KEY") or "f7628218af8b4fb16c375cf31e01c9afa13cdba996d8b7dc5b11d43a6423c5a8"
     WTF_CSRF_SECRET_KEY = "f7628218af8b4fb16c375cf31e01c9afa13cdba996d8b7dc5b11d43a6423c5a8"
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-    'sqlite:///' + os.path.join(basedir, 'app.db')
+    MONGO_URI = os.environ.get('MONGO_URI') or "mongodb://localhost:27017/movie_db"
 
 
 class ProductionConfig(Config):

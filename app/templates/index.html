@@ -1,11 +1,12 @@
 {% extends "base.html" %} {% block content %}
-
-<h1>Hi, {{ current_user.username }}!</h1>
+{% if session['username'] %}
+<h1>Hi, {{  session['username'] }}!</h1>
+{% endif %}
 <form action="" method="post" novalidate>
   {{ form.hidden_tag() }}
   <p>{{ form.languages.label }} {{ form.languages }}</p>
   <p>
-    {{ form.movie_geners.label }} {{ form.movie_geners(cols=1, multiple=True) }}
+    {{ form.movie_geners.label }}  {{ form.movie_geners(cols=1, multiple=True) }}
   </p>
   <p>{{ form.submit() }}</p>
 </form>

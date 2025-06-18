@@ -1,6 +1,6 @@
 import os 
 
-from app import create_app , db
+from app import create_app , mongo
 
 from app.user.models import  User 
 
@@ -9,7 +9,7 @@ app = create_app()
 @app.shell_context_processor
 def shell():
     return {
-        "db": db,
+        "db": mongo.db,
         "User" : User
     }
 if __name__ == '__main__' :
