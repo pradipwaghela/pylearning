@@ -19,6 +19,7 @@ def login():
 @user.route("/register", methods=["GET", "POST"])
 def register():
     """Signup user route"""
+
     return UserController.register()
 
 @user.route("/logout")

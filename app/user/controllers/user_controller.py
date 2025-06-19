@@ -10,18 +10,17 @@ class UserController():
     
     def login(self):
         """Login Route"""
-        if session.get('username') is True:
+        if session.get('username') is not None :
             return redirect(url_for("movie_suggest.index"))
         form = LoginForm()
         if form.validate_on_submit():
             username = form.username.data
             password = form.password.data
-            data,status_code = User.login(username,password)
-            if status_code == 200 :
+            is_login , msg = User.login(username,password)
+            if is_login :
                 session["username"] = username
                 return redirect(url_for("movie_suggest.index"))
-            else : 
-                flash(data["error"])
+            flash(msg)
         return render_template("login.html", title="Sign In", form=form)
     
     def register(self):
@@ -33,16 +32,15 @@ class UserController():
             username = form.username.data
             email=form.email.data
             password = form.password.data
-            data , status_code = User.register(username,password,email)
-            if status_code == 200 :
-                flash(data["message"])
+            is_registred , msg =  User.register(username,password,email)
+            if is_registred:
+                flash(msg)
                 return redirect(url_for("user.login"))
-            else : 
-                flash(data["error"])
+            flash(msg)
         return render_template("register.html", title="Register", form=form)
     
     def logout(self):
         """Logout user route"""
         session.pop('username' ,default= None)
-        return redirect(url_for("movie_suggest.index"))
+        return redirect(url_for("movie_suggest.index")) 
     

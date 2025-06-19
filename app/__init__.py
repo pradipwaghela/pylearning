@@ -24,7 +24,7 @@ def create_app():
     load_dotenv()  # loading envrionement variables
     
     app = Flask(__name__)
-
+    
     env_type = os.environ.get("FLASK_ENV", default="Development")
 
     if env_type == "Development":
@@ -35,6 +35,8 @@ def create_app():
 
     elif env_type == "Testing":
         app.config.from_object(TestingConfig)
+    
+    mongo.init_app(app)
     #Load Template
     # Import and register blueprints
     from app.movie.routes import movie_suggest
@@ -44,7 +46,7 @@ def create_app():
     
     app.register_blueprint(user)
 
-    mongo.init_app(app)
+    
 
     
     return app

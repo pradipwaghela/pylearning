@@ -1,4 +1,4 @@
-from flask import render_template, flash
+from flask import render_template, flash, session , url_for, redirect
 
 from app.movie.forms import MovieForm
 from app.movie.services import get_movieids, get_random_movie
@@ -17,6 +17,9 @@ class MovieController:
             render_template: Render home page
         """
         try :
+            if session.get("username") is None:
+                return redirect(url_for("user.login"))
+            
             form = MovieForm()
             if form.validate_on_submit():
                 language = form.languages.data

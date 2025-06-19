@@ -12,10 +12,10 @@ movie_suggest = Blueprint("movie_suggest", __name__)
 
 
 
-@movie_suggest.before_request
-def before_request():
-    if session.get("username") is  False:
-        url_for('/login')
+# @movie_suggest.before_request
+# def before_request():
+#     if session.get("username") is False:
+#         url_for('user.login')
         
 @movie_suggest.route('/index', methods=["Post", "Get"])
 @movie_suggest.route('/', methods=["Post", "Get"])
