@@ -17,8 +17,8 @@ class MovieController:
             render_template: Render home page
         """
         try :
-            if session.get("username") is None:
-                return redirect(url_for("user.login"))
+            # if session.get("username") is None:
+            #     return redirect(url_for("user.login"))
             
             form = MovieForm()
             if form.validate_on_submit():

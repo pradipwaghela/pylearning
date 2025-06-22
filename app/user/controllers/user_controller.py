@@ -1,12 +1,13 @@
 
 from flask_login import current_user,logout_user 
-from flask import render_template, flash, redirect, url_for, session
+from flask import render_template, flash, redirect, url_for, session, jsonify , make_response
+from flask_jwt_extended import set_access_cookies , set_refresh_cookies, unset_jwt_cookies 
 
 from app.user.forms import LoginForm ,RegistrationForm
 from app.user.models import User
+from app.services import Auth
 
-
-class UserController():
+class UserController(): 
     
     def login(self):
         """Login Route"""
@@ -18,8 +19,12 @@ class UserController():
             password = form.password.data
             is_login , msg = User.login(username,password)
             if is_login :
-                session["username"] = username
-                return redirect(url_for("movie_suggest.index"))
+                #session["username"] = username
+                access_token , refresh_token , csrf_token = Auth.genrate_token(username)
+                response = make_response(redirect(url_for("movie_suggest.index"))) 
+                set_access_cookies(response, access_token)
+                set_refresh_cookies(response, refresh_token)
+                return response
             flash(msg)
         return render_template("login.html", title="Sign In", form=form)
     
@@ -41,6 +46,8 @@ class UserController():
     
     def logout(self):
         """Logout user route"""
-        session.pop('username' ,default= None)
-        return redirect(url_for("movie_suggest.index")) 
+        response = make_response(redirect(url_for("movie_suggest.index")) )
+        unset_jwt_cookies(response)
+        return response
+        
     

@@ -13,7 +13,7 @@ from flask import Flask
 import jinja2
 
 from config import ProductionConfig, DevelopmentConfig, TestingConfig
-from app.extensions import mongo
+from app.extensions import mongo, jwt
 
 
 def create_app():
@@ -37,6 +37,7 @@ def create_app():
         app.config.from_object(TestingConfig)
     
     mongo.init_app(app)
+    jwt.init_app(app)
     #Load Template
     # Import and register blueprints
     from app.movie.routes import movie_suggest
@@ -46,7 +47,4 @@ def create_app():
     
     app.register_blueprint(user)
 
-    
-
-    
     return app
