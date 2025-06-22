@@ -9,7 +9,7 @@ from app.user.controllers import UserController
 
 user = Blueprint("user", __name__)
 
-
+@user.route("/", methods=["GET", "POST"])
 @user.route("/login", methods=["GET", "POST"])
 def login():
     """Login Route"""

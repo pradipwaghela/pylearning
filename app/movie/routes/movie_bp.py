@@ -3,17 +3,15 @@ Contains routes of the application
 movie_suggest -> Main blue print
 
 """
-from datetime import datetime, timezone
-from flask import Blueprint, session, url_for
+from flask import Blueprint
 
-from flask_jwt_extended import jwt_required
 from app.movie.controllers import MovieController
+from flask_jwt_extended import jwt_required
 
 movie_suggest = Blueprint("movie_suggest", __name__)
 
-        
-@movie_suggest.route('/index', methods=["Post", "Get"])
-@movie_suggest.route('/', methods=["Post", "Get"])
+
+@movie_suggest.route('/home', methods=["Post", "Get"])
 @jwt_required()
 def index():
     """Landing/Welcome Page route
@@ -22,4 +20,3 @@ def index():
         render_template: Render home page
     """
     return MovieController.get_movie()
-

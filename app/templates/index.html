@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
-{% if session['username'] %}
-<h1>Hi, {{  session['username'] }}!</h1>
+{% if username %}
+<h1>Hi, {{ username }} !</h1>
 {% endif %}
 <form action="" method="post" novalidate>
   {{ form.hidden_tag() }}

@@ -11,8 +11,6 @@ class UserController():
     
     def login(self):
         """Login Route"""
-        if session.get('username') is not None :
-            return redirect(url_for("movie_suggest.index"))
         form = LoginForm()
         if form.validate_on_submit():
             username = form.username.data
@@ -21,7 +19,7 @@ class UserController():
             if is_login :
                 #session["username"] = username
                 access_token , refresh_token , csrf_token = Auth.genrate_token(username)
-                response = make_response(redirect(url_for("movie_suggest.index"))) 
+                response = make_response(redirect(url_for("movie_suggest.index")))   
                 set_access_cookies(response, access_token)
                 set_refresh_cookies(response, refresh_token)
                 return response

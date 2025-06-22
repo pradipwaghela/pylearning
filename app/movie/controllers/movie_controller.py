@@ -2,7 +2,7 @@ from flask import render_template, flash, session , url_for, redirect
 
 from app.movie.forms import MovieForm
 from app.movie.services import get_movieids, get_random_movie
-
+from app.services import Auth
 
 class MovieController:
     """sumary_line"""
@@ -17,9 +17,8 @@ class MovieController:
             render_template: Render home page
         """
         try :
-            # if session.get("username") is None:
-            #     return redirect(url_for("user.login"))
-            
+            identity = Auth.get_user_identity()
+            print(f"identity is {identity}")
             form = MovieForm()
             if form.validate_on_submit():
                 language = form.languages.data
@@ -50,7 +49,7 @@ class MovieController:
             print(f"Error occuer {e}")
             flash("Error While suggesting movie Please Try Again")
 
-        return render_template("index.html", form=form)
+        return render_template("index.html", form=form,username=identity)
             
         
             

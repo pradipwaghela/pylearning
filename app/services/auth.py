@@ -1,4 +1,5 @@
-from flask_jwt_extended import create_access_token , create_refresh_token , get_csrf_token ,get_jwt_identity
+from flask_jwt_extended import create_access_token , create_refresh_token , get_csrf_token, get_jwt_identity , verify_jwt_in_request
+
 
 
 class Auth():
@@ -13,3 +14,5 @@ class Auth():
         pass 
     def get_user_identity(self):
         return get_jwt_identity()
+    def verify_request(self):
+        return verify_jwt_in_request(optional=True)
