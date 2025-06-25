@@ -20,6 +20,9 @@ class Config:
     MONGO_URI = os.environ.get('MONGO_URI') or "mongodb://localhost:27017/movie_db"
     JWT_SECRET_KEY = "movie_secret"
     JWT_TOKEN_LOCATION = ['cookies']
+    JWT_COOKIE_CSRF_PROTECT = True
+    JWT_CSRF_CHECK_FORM = True
+    
 
 
 class ProductionConfig(Config):
