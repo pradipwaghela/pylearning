@@ -18,8 +18,14 @@ class UserController():
             is_login , msg = User.login(username,password)
             if is_login :
                 #session["username"] = username
-                access_token , refresh_token , csrf_token = Auth.genrate_token(username)
-                response = make_response(redirect(url_for("movie_suggest.index")))   
+                user_details = User.get_user_details(username)
+                email = {
+                    'email':user_details['email']
+                }
+                access_token , refresh_token = Auth.genrate_token(username,claims=email)
+                
+                
+                response = make_response(redirect(url_for("movie_suggest.index")))
                 set_access_cookies(response, access_token)
                 set_refresh_cookies(response, refresh_token)
                 return response
