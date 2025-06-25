@@ -5,15 +5,4 @@
 <h1>Hi, {{ username }} !</h1>
 {% endif %}
 {{ wtf.quick_form(form) }}
-{% if jwt_csrf %}
-    <script>
-        // Inject CSRF token manually into the generated form
-        const form = document.querySelector('form');
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'csrf_token';
-        input.value = "{{ jwt_csrf }}";
-        form.appendChild(input);
-    </script>
-{% endif %} 
 {% endblock %}
