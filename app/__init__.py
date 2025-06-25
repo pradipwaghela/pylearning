@@ -10,11 +10,10 @@ from dotenv import load_dotenv
 
 from flask import Flask
 
-import jinja2
 
 from config import ProductionConfig, DevelopmentConfig, TestingConfig
-from app.extensions import mongo, jwt
-
+from app.extensions import mongo, jwt, csrf
+from app.services import Auth
 
 def create_app():
     """
@@ -39,6 +38,7 @@ def create_app():
         
         mongo.init_app(app)
         jwt.init_app(app)
+        csrf.init_app(app)
         #Load Template
         # Import and register blueprints
         from app.movie.routes import movie_suggest
@@ -47,5 +47,6 @@ def create_app():
         app.register_blueprint(movie_suggest)
         
         app.register_blueprint(user)
+        # app.context_processor(Auth.inject_csrf_token)
 
     return app
