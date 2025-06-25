@@ -1,0 +1,16 @@
+1 ) Add before_request for whole flask app
+2 ) Implement JWT token - validate token before every request, refresh token - Done
+    - Add Email Id first last in JWT token 
+3 ) Implment logging rotate every day and zip weekly report 
+4 ) Add levels to login 
+5 ) Make constant for every message (error,information,etc)
+6 ) MVC layer data tranfer communication object (Data Transfer Objects (DTOs) )
+7 ) Database Changes :- 
+    Use datatype for every fields in the database 
+    Split MONGO_URI in different parts 
+    Add created_at updated_at updated_by time stamp in user db (use miliseconds )
+    Create one layer (DAO) that will used to interact with the database 
+    - All commonuly used query 
+    Module specific DAO -> Base DAO -> Database 
+    Understand aggrigation 
+    Understand working of mongodb client
