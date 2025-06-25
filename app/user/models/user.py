@@ -47,7 +47,7 @@ class User():
             
     def get_user_details(self,username):
         if self.check_user_username(username):
-            return mongo.db.users.find_one({'username' : username}) 
+            return mongo.db.users.find_one({'username' : username})
         return None
     
     def check_user_username(self,username):
