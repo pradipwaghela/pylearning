@@ -1,14 +1,19 @@
 {% extends "base.html" %} {% block content %}
+{% import "bootstrap_wtf.html" as wtf %}
+
 {% if username %}
 <h1>Hi, {{ username }} !</h1>
 {% endif %}
-<form action="" method="post" novalidate>
-  {{ form.hidden_tag() }}
-  <p>{{ form.languages.label }} {{ form.languages }}</p>
-  <p>
-    {{ form.movie_geners.label }}  {{ form.movie_geners(cols=1, multiple=True) }}
-  </p>
-  <p>{{ form.submit() }}</p>
-</form>
-
+{{ wtf.quick_form(form) }}
+{% if jwt_csrf %}
+    <script>
+        // Inject CSRF token manually into the generated form
+        const form = document.querySelector('form');
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'csrf_token';
+        input.value = "{{ jwt_csrf }}";
+        form.appendChild(input);
+    </script>
+{% endif %} 
 {% endblock %}
