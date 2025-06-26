@@ -4,7 +4,6 @@ from wtforms import (
     SubmitField,
     StringField,
     PasswordField,
-    BooleanField,
 )
 
 from wtforms.validators import (

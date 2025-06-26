@@ -1,4 +1,3 @@
-import sqlalchemy as sa
 
 from flask_wtf import FlaskForm
 from wtforms import (

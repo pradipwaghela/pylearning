@@ -1,8 +1,10 @@
+"""
+User model file 
+"""
+
 import uuid
 
-from flask import jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-from bson import objectid
 
 from app.extensions import mongo
 
@@ -19,23 +21,31 @@ class User():
         pass
     
     def set_password(self, password):
+        """Genrate hash pasword 
+        """
+        
         return generate_password_hash(password)
 
     def check_password(self, password_hash , password):
+        """Check password provided by user """
         return check_password_hash(password_hash, password)
     
     def register(self,username,password,email):
-        
-            user = {
-                '_id' : uuid.uuid4().hex,
-                'username' : username,
-                'email' : email,
-                'password' : self.set_password(password)
-                }
-            if mongo.db.users.insert_one(user) :
-                return True , f'Congratulation {username} , Your account is created.'
+        """Register new user"""
+        user = {
+            '_id' : uuid.uuid4().hex,
+            'username' : username,
+            'email' : email,
+            'password' : self.set_password(password)
+            }
+        if mongo.db.users.insert_one(user) :
+            return True , f'Congratulation {username} , Your account is created.'
 
     def login(self,username,password):
+        """
+        Login user 
+        """
+        
         user_details = self.get_user_details(username)
         if user_details:
             if self.check_password(user_details["password"],password):
@@ -46,15 +56,22 @@ class User():
             return False ,  "Username  does not exists"
             
     def get_user_details(self,username):
+        """Get user details from db """
         if self.check_user_username(username):
             return mongo.db.users.find_one({'username' : username})
         return None
     
     def check_user_username(self,username):
-      return mongo.db.users.find_one({'username' : username})
+        """
+        Check if user exist using username 
+        """
+        return mongo.db.users.find_one({'username' : username})
 
     
     def check_user_email(self,email):
-       return mongo.db.users.find_one({'username' : email})
+        """
+        Check is user exist using email
+        """
+        return mongo.db.users.find_one({'username' : email})
 
     

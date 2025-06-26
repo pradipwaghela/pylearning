@@ -8,10 +8,16 @@ app = create_app()
 
 @app.shell_context_processor
 def shell():
+    """
+    Set flask shell context 
+
+    Returns:
+        db : _description_
+    """
     return {
-        "db": mongo.db,
-        "User" : User
+        "db": mongo.db
     }
+    
 if __name__ == '__main__' :
     port  = os.environ.get("FLASK_RUN_PORT",default=5000)
     ip = os.environ.get("FLASK_RUN_HOST",default="0.0.0.0")

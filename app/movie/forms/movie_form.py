@@ -1,15 +1,13 @@
 
-from typing import Any
+
 from flask_wtf import FlaskForm
 from wtforms import (
     SubmitField,
     RadioField,
 )
 
-from wtforms.fields.core import UnboundField
 from wtforms.form import BaseForm
 from wtforms.validators import (
-    DataRequired,
     InputRequired,
     StopValidation
 
@@ -20,11 +18,22 @@ from flask_jwt_extended import get_jwt
 from app.forms.common_widgest import MultiCheckboxField
 
 class JWTCSRF(CSRF):
+    """
+    Custom JWT CSRF class 
+    """
+    
     def setup_form(self, form: BaseForm) :
+        """
+        override parent setup_form() method
+        """
         self.csrf_context = form.meta.csrf_context
         return super(JWTCSRF,self).setup_form(form)
     
-    def generate_csrf_token(self, csrf_token): 
+    def generate_csrf_token(self, csrf_token):
+        """
+        Get JWT http csrf string 
+        """
+        
         token = get_jwt()
         csrf = token['csrf']
         return csrf
@@ -32,7 +41,12 @@ class JWTCSRF(CSRF):
     def validate_csrf_token(self, form, field):
         if field.data != field.current_token:
             raise ValueError('Invalid CSRF')
+        
 class MultiCheckboxAtLeastOne():
+    """
+    Custom form validator for list 
+    
+    """
     def __init__(self, message=None):
         if not message:
             message = 'At least one option must be selected.'
@@ -49,6 +63,10 @@ class MovieForm(FlaskForm):
         FlaskForm
     """
     class Meta:
+        """
+        Setup Flask_WT CSRF for custom CSRF
+        """
+        
         csrf = True
         csrf_class = JWTCSRF 
 

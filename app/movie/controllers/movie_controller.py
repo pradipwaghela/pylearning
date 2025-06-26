@@ -1,11 +1,16 @@
-from flask import render_template, flash, session , url_for, redirect
+"""
+Movie controller 
+"""
+from flask import render_template, flash
 
 from app.movie.forms import MovieForm
 from app.movie.services import get_movieids, get_random_movie
 from app.services import Auth
 
 class MovieController:
-    """sumary_line"""
+    """
+    Movie suggestion class 
+    """
 
     def __init__(self) -> None:
         pass

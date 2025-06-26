@@ -1,4 +1,7 @@
+"""
+Widgest that are not specific to the module 
 
+"""
 from wtforms import (
     SelectMultipleField,
     widgets,

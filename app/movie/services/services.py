@@ -1,16 +1,14 @@
 """
-Service file
+Movie Module Service file
 """
 
 import random
 import json
-from flask import url_for, redirect, make_response, g
-from flask_jwt_extended import jwt_required, get_jwt
+
 
 from PyMovieDb import IMDB
 
 from app.movie.services.scrape_imdb_titles import ScrapeIMDBTitle
-from app.services import Auth
 
 
 def get_movieids(language, geners):

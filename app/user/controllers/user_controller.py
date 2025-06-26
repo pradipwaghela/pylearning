@@ -1,6 +1,8 @@
+"""
+User authentication controller 
+"""
 
-from flask_login import current_user,logout_user 
-from flask import render_template, flash, redirect, url_for, session, jsonify , make_response
+from flask import render_template, flash, redirect, url_for, make_response
 from flask_jwt_extended import set_access_cookies , set_refresh_cookies, unset_jwt_cookies 
 
 from app.user.forms import LoginForm ,RegistrationForm
@@ -17,7 +19,6 @@ class UserController():
             password = form.password.data
             is_login , msg = User.login(username,password)
             if is_login :
-                #session["username"] = username
                 user_details = User.get_user_details(username)
                 email = {
                     'email':user_details['email']
@@ -34,8 +35,6 @@ class UserController():
     
     def register(self):
         """Signup user route"""
-        if session.get('username') is True:
-            return redirect(url_for("movie_suggest.index"))
         form = RegistrationForm()
         if form.validate_on_submit():
             username = form.username.data

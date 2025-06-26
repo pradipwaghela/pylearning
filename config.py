@@ -7,7 +7,7 @@
 """
 
 import os
-
+import datetime 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -22,8 +22,8 @@ class Config:
     JWT_TOKEN_LOCATION = ['cookies']
     JWT_COOKIE_CSRF_PROTECT = True
     JWT_CSRF_CHECK_FORM = True
-    
-
+    JWT_ACCESS_TOKEN_EXPIRE = datetime.timedelta(minutes=int(os.environ.get("JWT_ACCESS_TOKEN_EXPIRE")) or 15)
+    JWT_REFRESH_TOKEN_EXPIRES = datetime.timedelta(hours=int(os.environ.get("JWT_REFRESH_TOKEN_EXPIRES")) or 1)
 
 class ProductionConfig(Config):
     """Class contains producation configuration"""
