@@ -1,26 +1,40 @@
 """
 Flask app extentions 
 """
+import os 
+import logging
+from flask import current_app, request
 from  flask_pymongo import PyMongo
-from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_wtf import CSRFProtect
 
+from app.constants import User_Endpoints
+from app.services  import Auth
 mongo = PyMongo()
-login = LoginManager()
 migrate = Migrate()
 jwt = JWTManager()
 csrf = CSRFProtect()
 
-def init_logger():
-    """
-    Set logger for app 
-    """
-    pass 
 
 def before_request():
     """
     Pre request steps 
     """
-    pass 
+    request_endpoint = request.path
+    protected_endpoints = User_Endpoints["protected"]
+    if request_endpoint in protected_endpoints :
+        Auth.validate_token()
+    logging.info("User trying to access [%s] ", request_endpoint)
+
+def setup_folder():
+    """
+    Create folder structure of the application 
+    """
+    try:
+        log_files_path = current_app.config.get("LOG_FILES_PATH")
+        if not (os.path.exists(log_files_path)):
+            logging.debug("Created log file path %s",log_files_path)
+            os.makedirs(log_files_path,exist_ok=True)
+    except Exception as e :
+        logging.error("Error while creating folder structure %s",e)

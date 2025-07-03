@@ -2,6 +2,7 @@
 Scrape IMDB movie details
 ScrapeIMDBTitle() -> Scrap movie details
 """
+import logging
 
 import requests as re
 
@@ -44,7 +45,7 @@ class ScrapeIMDBTitle:
             resp = re.get(new_url, headers=self.headers)
             return BS(resp.content, "html5lib")
         except Exception as e:
-            print(f"Problem while accessing website {e}")
+            logging.error("Error while accessing IMDB website [%s] [%s]",new_url,e)
             return None
 
     def get_imdb_titles(self, lan, geners):
@@ -58,11 +59,14 @@ class ScrapeIMDBTitle:
         Returns:
             list : IMDB movie unique ID list
         """
-        imbd_id = []
-        soup = self.get_scrap(lan, geners)
-        rows = soup.findAll("a", attrs={"class": "ipc-title-link-wrapper"})
-        for row in rows:
-            href = row.get("href")
-            movie_id = href.split("/")[2]
-            imbd_id.append(movie_id)
-        return imbd_id
+        try :
+            imbd_id = []
+            soup = self.get_scrap(lan, geners)
+            rows = soup.findAll("a", attrs={"class": "ipc-title-link-wrapper"})
+            for row in rows:
+                href = row.get("href")
+                movie_id = href.split("/")[2]
+                imbd_id.append(movie_id)
+            return imbd_id
+        except Exception as e :
+            logging.error("Error while getting titles of the movie %s",e)

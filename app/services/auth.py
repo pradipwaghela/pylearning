@@ -11,6 +11,7 @@ from flask_jwt_extended import (
     get_csrf_token,
     get_jwt_identity,
     get_jwt,
+    verify_jwt_in_request
 )
 
 
@@ -39,13 +40,13 @@ class Auth:
         return access_token, create_refresh_token(
             identity=user_details, additional_claims=claims)
 
-    def validate_token(self, token):
+    def validate_token(self):
         """Valide JWT token 
 
         Args:
             token (_str_): JWT access token 
         """
-        pass
+        return verify_jwt_in_request
 
 
     def get_user_identity(self):

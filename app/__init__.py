@@ -10,9 +10,10 @@ from dotenv import load_dotenv
 
 from flask import Flask
 
+from app.services.mv_logging import setup_logger
 
 from config import ProductionConfig, DevelopmentConfig, TestingConfig
-from app.extensions import mongo, jwt, csrf
+from app.extensions import mongo, jwt, csrf, before_request, setup_folder 
 from app.services import Auth
 
 def create_app():
@@ -23,7 +24,9 @@ def create_app():
     
     app = Flask(__name__)
     with app.app_context():
+        
         load_dotenv()  # loading envrionement variables
+        
 
         env_type = os.environ.get("FLASK_ENV", default="Development")
 
@@ -39,7 +42,13 @@ def create_app():
         mongo.init_app(app)
         jwt.init_app(app)
         csrf.init_app(app)
-        #Load Template
+        
+        setup_folder() # Setup required folder strucutre
+        setup_logger() # Setup logger
+        
+        #Process requests
+        app.before_request(before_request)
+        
         # Import and register blueprints
         from app.movie.routes import movie_suggest
         from app.user.routes import user

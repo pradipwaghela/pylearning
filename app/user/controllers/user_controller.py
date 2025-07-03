@@ -49,7 +49,7 @@ class UserController():
     
     def logout(self):
         """Logout user route"""
-        response = make_response(redirect(url_for("movie_suggest.index")) )
+        response = make_response(redirect(url_for("user.login")) )
         unset_jwt_cookies(response)
         return response
         

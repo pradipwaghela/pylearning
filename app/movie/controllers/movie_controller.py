@@ -1,6 +1,7 @@
 """
 Movie controller 
 """
+import logging
 from flask import render_template, flash
 
 from app.movie.forms import MovieForm
@@ -23,7 +24,7 @@ class MovieController:
         """
         try :
             identity = Auth.get_user_identity()
-            print(f"identity is {identity}")
+            
             form = MovieForm()
             if form.validate_on_submit():
                 language = form.languages.data
@@ -48,11 +49,12 @@ class MovieController:
                 }
                 return render_template("movie.html", movie=movie_details)
         except TypeError :
-            print("No movie found for selected input")
             flash("No Movie found for selected input")
+            logging.debug("No movie found for selected input")
+
         except Exception as e :
-            print(f"Error occuer {e}")
             flash("Error While suggesting movie Please Try Again")
+            logging.error("Error while suggesting movie %s",e )
 
         return render_template("index.html", form=form,username=identity)
             

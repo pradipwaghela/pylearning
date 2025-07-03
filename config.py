@@ -15,15 +15,25 @@ class Config:
     """Class with default configutaion
        Orveride variable of the class
     """
+    ##CSRF config
     SECRET_KEY = os.environ.get("SECRET_KEY") or "f7628218af8b4fb16c375cf31e01c9afa13cdba996d8b7dc5b11d43a6423c5a8"
     WTF_CSRF_SECRET_KEY = "f7628218af8b4fb16c375cf31e01c9afa13cdba996d8b7dc5b11d43a6423c5a8"
+    
+    ##Database config 
     MONGO_URI = os.environ.get('MONGO_URI') or "mongodb://localhost:27017/movie_db"
+    
+    ##Jwt config 
     JWT_SECRET_KEY = "movie_secret"
     JWT_TOKEN_LOCATION = ['cookies']
     JWT_COOKIE_CSRF_PROTECT = True
     JWT_CSRF_CHECK_FORM = True
-    JWT_ACCESS_TOKEN_EXPIRE = datetime.timedelta(minutes=int(os.environ.get("JWT_ACCESS_TOKEN_EXPIRE")) or 15)
-    JWT_REFRESH_TOKEN_EXPIRES = datetime.timedelta(hours=int(os.environ.get("JWT_REFRESH_TOKEN_EXPIRES")) or 1)
+    TOKEN_EXPIRE = int(os.environ.get("JWT_ACCESS_TOKEN_EXPIRE")) or 15
+    REFRESH_TOKEN_EXPIRES = int(os.environ.get("JWT_REFRESH_TOKEN_EXPIRES")) or 1
+    JWT_ACCESS_TOKEN_EXPIRE = datetime.timedelta(minutes=TOKEN_EXPIRE )
+    JWT_REFRESH_TOKEN_EXPIRES = datetime.timedelta(hours=REFRESH_TOKEN_EXPIRES)
+    
+    ##Logging config 
+    LOG_FILES_PATH = os.environ.get("LOG_FILES_PATH") or os.path.join(os.path.dirname(os.path.realpath(__file__)),"logs")
 
 class ProductionConfig(Config):
     """Class contains producation configuration"""

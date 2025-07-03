@@ -4,7 +4,7 @@ Movie Module Service file
 
 import random
 import json
-
+import logging
 
 from PyMovieDb import IMDB
 
@@ -22,8 +22,11 @@ def get_movieids(language, geners):
     Returns:
         list : IMDB movie unique Id 
     """
-    imdb_obj = ScrapeIMDBTitle()
-    return imdb_obj.get_imdb_titles(lan=language, geners=geners)
+    try :    
+        imdb_obj = ScrapeIMDBTitle()
+        return imdb_obj.get_imdb_titles(lan=language, geners=geners)
+    except Exception as e:
+        logging.error("Error while getting movie ids %s",e)
 
 
 def get_random_movie(ids):
@@ -55,5 +58,5 @@ def get_random_movie(ids):
             movie_imdb_rating,
         )
     except Exception as e :
-        print(f"Error while getting movie details \n {e}")
+        logging.error("Error while getting movie details %s", e)
         return None
