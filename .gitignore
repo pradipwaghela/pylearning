@@ -175,3 +175,9 @@ cython_debug/
 
 #database
 *.db
+#Ignore logs 
+*.log
+logs/
+
+#ignore Vscode 
+.vscode/
