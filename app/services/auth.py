@@ -46,7 +46,7 @@ class Auth:
         Args:
             token (_str_): JWT access token 
         """
-        return verify_jwt_in_request
+        return verify_jwt_in_request()
 
 
     def get_user_identity(self):
