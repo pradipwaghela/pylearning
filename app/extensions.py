@@ -9,23 +9,12 @@ from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_wtf import CSRFProtect
 
-from app.constants import User_Endpoints
-from app.services  import Auth
 mongo = PyMongo()
 migrate = Migrate()
 jwt = JWTManager()
 csrf = CSRFProtect()
 
 
-def before_request():
-    """
-    Pre request steps 
-    """
-    request_endpoint = request.path
-    protected_endpoints = User_Endpoints["protected"]
-    if request_endpoint in protected_endpoints :
-        Auth.validate_token()
-    logging.info("User trying to access [%s] ", request_endpoint)
 
 def setup_folder():
     """

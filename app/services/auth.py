@@ -4,7 +4,7 @@ JWT user authentication service file
 
 
 import time
-
+import logging
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
@@ -46,8 +46,12 @@ class Auth:
         Args:
             token (_str_): JWT access token 
         """
-        return verify_jwt_in_request()
-
+        try :
+            verify_jwt_in_request()
+            return True
+        except Exception as e:
+            logging.debug("JWT verification failed: %s", str(e))
+            return False
 
     def get_user_identity(self):
         """

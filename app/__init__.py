@@ -13,7 +13,9 @@ from flask import Flask
 from app.services.mv_logging import setup_logger
 
 from config import ProductionConfig, DevelopmentConfig, TestingConfig
-from app.extensions import mongo, jwt, csrf, before_request, setup_folder 
+from app.extensions import mongo, jwt, csrf, setup_folder 
+from app.middlewares import  before_request
+
 from app.services import Auth
 
 def create_app():
