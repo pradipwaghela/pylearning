@@ -31,7 +31,7 @@ class UserController():
                 set_refresh_cookies(response, refresh_token)
                 return response
             flash(msg)
-        return render_template("login.html", title="Sign In", form=form)
+        return render_template("user/login.html", title="Sign In", form=form)
     
     def register(self):
         """Signup user route"""
@@ -45,7 +45,7 @@ class UserController():
                 flash(msg)
                 return redirect(url_for("user.login"))
             flash(msg)
-        return render_template("register.html", title="Register", form=form)
+        return render_template("user/register.html", title="Register", form=form)
     
     def logout(self):
         """Logout user route"""

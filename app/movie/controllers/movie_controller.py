@@ -47,7 +47,7 @@ class MovieController:
                     "rating": movie_imdb_rating,
                     "url": movie_url,
                 }
-                return render_template("movie.html", movie=movie_details,username=identity)
+                return render_template("movie/movie.html", movie=movie_details,username=identity)
         except TypeError :
             flash("No Movie found for selected input")
             logging.debug("No movie found for selected input")
@@ -56,7 +56,7 @@ class MovieController:
             flash("Error While suggesting movie Please Try Again")
             logging.error("Error while suggesting movie %s",e )
 
-        return render_template("index.html", form=form,username=identity)
+        return render_template("movie/index.html", form=form,username=identity)
             
         
             

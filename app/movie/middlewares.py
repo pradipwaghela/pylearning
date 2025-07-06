@@ -1,6 +1,6 @@
 
 import logging
-from flask import Blueprint, redirect, url_for
+from flask import  redirect, url_for
 
 from flask_jwt_extended import set_access_cookies
 
