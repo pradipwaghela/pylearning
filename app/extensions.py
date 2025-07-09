@@ -5,12 +5,10 @@ import os
 import logging
 from flask import current_app, request
 from  flask_pymongo import PyMongo
-from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_wtf import CSRFProtect
 
 mongo = PyMongo()
-migrate = Migrate()
 jwt = JWTManager()
 csrf = CSRFProtect()
 
