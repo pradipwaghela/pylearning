@@ -9,7 +9,7 @@ from flask_jwt_extended import jwt_required
 from app.extensions import (jwt , csrf)
 
 from app.movie.controllers import MovieController
-from app.services import Auth
+from app.services import JWTAuth
 
 movie_suggest = Blueprint("movie_suggest", __name__)
 
@@ -33,7 +33,7 @@ def refresh_token(response):
     Refresh JWT token if expired or going to expire 
     '''
     try:
-        access_token = Auth.refresh_expiring_jwts()
+        access_token = JWTAuth.refresh_expiring_jwts()
         if access_token:
             set_access_cookies(response, access_token)
         return response

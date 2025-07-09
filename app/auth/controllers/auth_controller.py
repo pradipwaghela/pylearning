@@ -7,7 +7,7 @@ from flask_jwt_extended import set_access_cookies , set_refresh_cookies, unset_j
 
 from app.auth.forms import LoginForm ,RegistrationForm
 from app.auth.models import Auth
-from app.services import Auth
+from app.services import JWTAuth
 
 class AuthController(): 
     
@@ -17,13 +17,13 @@ class AuthController():
         if form.validate_on_submit():
             username = form.username.data
             password = form.password.data
-            is_login , msg = User.login(username,password)
+            is_login , msg = Auth.login(username,password)
             if is_login :
-                user_details = User.get_user_details(username)
+                user_details = Auth.get_user_details(username)
                 email = {
                     'email':user_details['email']
                 }
-                access_token , refresh_token = Auth.genrate_token(username,claims=email)
+                access_token , refresh_token = JWTAuth.genrate_token(username,claims=email)
                 
                 
                 response = make_response(redirect(url_for("movie_suggest.index")))
@@ -40,7 +40,7 @@ class AuthController():
             username = form.username.data
             email=form.email.data
             password = form.password.data
-            is_registred , msg =  User.register(username,password,email)
+            is_registred , msg =  Auth.register(username,password,email)
             if is_registred:
                 flash(msg)
                 return redirect(url_for("auth.login"))

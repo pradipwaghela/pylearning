@@ -4,7 +4,7 @@ from flask import  redirect, url_for
 
 from flask_jwt_extended import set_access_cookies
 
-from app.services import Auth
+from app.services import JWTAuth
 
 def unauthorized_callback(callback):
     '''
@@ -21,7 +21,7 @@ def refresh_token(response):
     Refresh JWT token if expired or going to expire 
     '''
     try:
-        access_token = Auth.refresh_expiring_jwts()
+        access_token = JWTAuth.refresh_expiring_jwts()
         if access_token:
             set_access_cookies(response, access_token)
         return response

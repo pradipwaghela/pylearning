@@ -15,7 +15,7 @@ from flask_jwt_extended import (
 )
 
 
-class Auth:
+class JWTAuth:
     '''
     JWT Uer Authentication class 
     '''

@@ -16,7 +16,7 @@ from config import ProductionConfig, DevelopmentConfig, TestingConfig
 from app.extensions import mongo, jwt, csrf, setup_folder 
 from app.middlewares import  before_request
 
-from app.services import Auth
+from app.services import JWTAuth
 
 def create_app():
     """
@@ -53,11 +53,11 @@ def create_app():
         
         # Import and register blueprints
         from app.movie.routes import movie_suggest
-        from app.auth.routes import user
+        from app.auth.routes import auth
 
         app.register_blueprint(movie_suggest)
         
-        app.register_blueprint(user)
-        # app.context_processor(Auth.inject_csrf_token)
+        app.register_blueprint(auth)
+        # app.context_processor(JWTAuth.inject_csrf_token)
 
     return app

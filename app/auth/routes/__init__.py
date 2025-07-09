@@ -1,1 +1,1 @@
-from .user_bp import user
+from .auth_bp import auth

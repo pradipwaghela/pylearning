@@ -37,7 +37,7 @@ class RegistrationForm(FlaskForm):
         Args :
             username
         """
-        user = User.check_user_username(username.data)
+        user = Auth.check_user_username(username.data)
         if user is not None:
             raise ValidationError("Please use a different username.")
 
@@ -49,6 +49,6 @@ class RegistrationForm(FlaskForm):
 
         """
 
-        user = User.check_user_email(email.data)
+        user = Auth.check_user_email(email.data)
         if user is not None:
             raise ValidationError("Please use a different email address.")

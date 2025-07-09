@@ -2,7 +2,7 @@ import os
 
 from app import create_app , mongo
 
-from app.auth.models import  User 
+from app.auth.models import  Auth 
 
 app = create_app()
 

@@ -6,7 +6,7 @@ from flask import render_template, flash
 
 from app.movie.forms import MovieForm
 from app.movie.services import get_movieids, get_random_movie
-from app.services import Auth
+from app.services import JWTAuth
 
 class MovieController:
     """
@@ -23,7 +23,7 @@ class MovieController:
             render_template: Render home page
         """
         try :
-            identity = Auth.get_user_identity()
+            identity = JWTAuth.get_user_identity()
             
             form = MovieForm()
             if form.validate_on_submit():

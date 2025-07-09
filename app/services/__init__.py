@@ -1,2 +1,2 @@
-from .auth import Auth
-Auth = Auth()
+from .jwt_auth import JWTAuth
+JWTAuth = JWTAuth()
