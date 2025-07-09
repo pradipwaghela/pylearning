@@ -53,7 +53,7 @@ def create_app():
         
         # Import and register blueprints
         from app.movie.routes import movie_suggest
-        from app.user.routes import user
+        from app.auth.routes import user
 
         app.register_blueprint(movie_suggest)
         

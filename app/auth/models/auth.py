@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.extensions import mongo
 
-class User():
+class Auth():
     """User Model
 
     Args:

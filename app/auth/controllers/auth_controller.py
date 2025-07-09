@@ -5,11 +5,11 @@ User authentication controller
 from flask import render_template, flash, redirect, url_for, make_response
 from flask_jwt_extended import set_access_cookies , set_refresh_cookies, unset_jwt_cookies 
 
-from app.user.forms import LoginForm ,RegistrationForm
-from app.user.models import User
+from app.auth.forms import LoginForm ,RegistrationForm
+from app.auth.models import Auth
 from app.services import Auth
 
-class UserController(): 
+class AuthController(): 
     
     def login(self):
         """Login Route"""
@@ -43,13 +43,13 @@ class UserController():
             is_registred , msg =  User.register(username,password,email)
             if is_registred:
                 flash(msg)
-                return redirect(url_for("user.login"))
+                return redirect(url_for("auth.login"))
             flash(msg)
         return render_template("user/register.html", title="Register", form=form)
     
     def logout(self):
         """Logout user route"""
-        response = make_response(redirect(url_for("user.login")) )
+        response = make_response(redirect(url_for("auth.login")) )
         unset_jwt_cookies(response)
         return response
         

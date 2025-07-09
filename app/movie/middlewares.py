@@ -12,7 +12,7 @@ def unauthorized_callback(callback):
     '''
     try :
         logging.debug("Not a valide JWT token please login back in ")
-        return redirect(url_for('user.login'))
+        return redirect(url_for('auth.login'))
     except Exception as e :
         logging.error("Error while redirecting user for re-login %s",e)
         
