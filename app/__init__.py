@@ -54,10 +54,10 @@ def create_app():
         # Import and register blueprints
         from app.movie.routes import movie_suggest
         from app.auth.routes import auth
-
+        from app.user.routes import user_bp
         app.register_blueprint(movie_suggest)
-        
         app.register_blueprint(auth)
+        app.register_blueprint(user_bp,url_prefix="/user")
         # app.context_processor(JWTAuth.inject_csrf_token)
 
     return app
