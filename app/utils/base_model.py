@@ -6,7 +6,7 @@ class BaseDAO():
     
     def find_one(self,query,projection):
         collection = mongo.db[self.collection]
-        return collection.find_one(query=query,projection=projection)
+        return collection.find_one(query,projection=projection)
     
     def find(self,query,projection):
         collection = mongo.db[self.collection]
