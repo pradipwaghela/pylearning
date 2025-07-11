@@ -12,43 +12,10 @@ from wtforms.validators import (
     EqualTo,
 )
 
-from app.auth.models import Auth
+class UpdateUser(FlaskForm):
+    username = StringField("Username",render_kw={'disabled': True})
+    email = StringField("Email",render_kw={'disabled': True})
+    firstname = StringField("Firstname", validators=[DataRequired()])
+    lastname = StringField("Lastname", validators=[DataRequired()])
+    save =  SubmitField("Save")
 
-class RegistrationForm(FlaskForm):
-    """
-    Use to create User Signup  page
-
-    Args:
-        FlaskForm
-    """
-
-    username = StringField("Username", validators=[DataRequired()])
-    email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    password2 = PasswordField(
-        "Repeat Password", validators=[DataRequired(), EqualTo("password")]
-    )
-    submit = SubmitField("Register")
-
-    def validate_username(self, username):
-        """
-        Validate Username
-
-        Args :
-            username
-        """
-        user = Auth.check_user_username(username.data)
-        if user is not None:
-            raise ValidationError("Please use a different username.")
-
-    def validate_email(self, email):
-        """
-        Validate User Email
-        Args :
-            email
-
-        """
-
-        user = Auth.check_user_email(email.data)
-        if user is not None:
-            raise ValidationError("Please use a different email address.")

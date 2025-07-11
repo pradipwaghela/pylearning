@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for key, value in user_details.items() %}
+<div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">{{ key | upper }}</label>
+    <div class="col-sm-10">
+        <input type="text" readonly class="form-control-plaintext" id="static{{ key }}" value="{{ value }}">
+    </div>
+</div>
+{% endfor %}
+<div class="col-auto">
+    <a class="btn btn-primary mb-3" role="button" href="{{ url_for('user.update_user_details',username=username) }}" >Edit</a>
+</div>
+{% endblock %}
