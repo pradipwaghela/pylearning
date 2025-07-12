@@ -20,11 +20,11 @@ class UserDAO(BaseDAO):
         }
         return BaseDAO.find_one(self,query=query,projection=None)
     
-    def update_user_details(seld,username,data):
+    def update_user_details(self,username,data):
         query = {
             "username" : username
         }  
         update_data = {
             '$set' : data
         }
-        return BaseDAO.update_one(query=query,data=update_data)
+        return BaseDAO.update_one(self,query=query,data=update_data,upsert=True)
