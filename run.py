@@ -15,7 +15,8 @@ def shell():
         db : _description_
     """
     return {
-        "db": mongo.db
+        "db": mongo.db,
+        "aut" : Auth
     }
     
 if __name__ == '__main__' :
