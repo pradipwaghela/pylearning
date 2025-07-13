@@ -23,7 +23,7 @@ class UserController():
             update = UserDAO.update_user_details(username,data)
             if update.matched_count == 1 : 
                 flash('Your profile is saved')
-                return redirect(url_for('user.update_user_details',username=username))
+                return redirect(url_for('user.get_user_details',username=username))
 
             else : 
                 flash('Not able to save your profile please try again')
