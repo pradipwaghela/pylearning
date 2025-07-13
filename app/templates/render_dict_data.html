@@ -1,0 +1,11 @@
+{% macro render_dict(dict_data) %}
+
+{% for key, value in dict_data.items() %}
+<div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">{{ key | upper }}</label>
+    <div class="col-sm-10">
+        <input type="text" readonly class="form-control-plaintext" id="static{{ key }}" value="{{ value }}">
+    </div>
+</div>
+{% endfor %}
+{% endmacro %}
