@@ -1,6 +1,6 @@
 from flask import render_template, url_for, request, redirect, flash
 from app.user.models import UserDAO
-from app.user.forms import UpdateUser
+from app.user.forms import UpdateUser, RegistrationForm
 class UserController():
     def __init__(self):
         pass 
@@ -34,3 +34,17 @@ class UserController():
             form.lastname.data = user_details.get("lastname") 
             form.email.data = user_details.get("email")
         return render_template('user/update_profile.html',form=form,username=username)
+    
+    def register(self):
+        """Signup user route"""
+        form = RegistrationForm()
+        if form.validate_on_submit():
+            username = form.username.data
+            email=form.email.data
+            password = form.password.data
+            is_registred , msg =  UserDAO.register(username,password,email)
+            if is_registred:
+                flash(msg)
+                return redirect(url_for("auth.login"))
+            flash(msg)
+        return render_template("user/register.html", title="Register", form=form)

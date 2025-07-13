@@ -4,7 +4,7 @@ from app.user.controllers import UserController
 user_bp = Blueprint("user",__name__)
 
 
-@user_bp.route("/<username>",methods=["GET"])
+@user_bp.route("/?<username>",methods=["GET"])
 def get_user_details(username):
     return UserController.get_user(username=username)
 
@@ -12,6 +12,6 @@ def get_user_details(username):
 def update_user_details(username):
     return UserController.update_user(username=username)
 
-@user_bp.route("/register",methods=["POST"])
+@user_bp.route("/register",methods=["POST","GET"])
 def register_user():
-    pass
+    return UserController.register()

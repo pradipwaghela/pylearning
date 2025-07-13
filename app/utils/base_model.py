@@ -4,11 +4,11 @@ class BaseDAO():
     def __init__(self, collection):
         self.collection = collection
     
-    def find_one(self,query,projection):
+    def find_one(self,query,projection=None):
         collection = mongo.db[self.collection]
         return collection.find_one(query,projection=projection)
     
-    def find(self,query,projection):
+    def find(self,query,projection=None):
         collection = mongo.db[self.collection]
         return collection.find(query,projection=projection)
     

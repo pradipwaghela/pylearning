@@ -3,8 +3,9 @@ Contains routes of the application
 movie_suggest -> Main blue print
 
 """
-from flask import Blueprint
-from flask_jwt_extended import jwt_required
+import logging
+from flask import Blueprint, redirect, url_for
+from flask_jwt_extended import jwt_required, set_access_cookies
 
 from app.extensions import (jwt , csrf)
 
