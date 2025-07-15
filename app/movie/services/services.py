@@ -50,6 +50,7 @@ def get_random_movie(ids):
         movie_url = data["url"]
         movie_imdb_rating = data["rating"]["ratingValue"]
         return (
+            random_movie,
             movie_name,
             movie_lan,
             movie_genre,

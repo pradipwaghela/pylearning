@@ -2,9 +2,9 @@
 Movie controller 
 """
 import logging
-from flask import render_template, flash
+from flask import render_template, flash,request
 
-from app.movie.forms import MovieForm
+from app.movie.forms import MovieForm,WishlistMovieForm
 from app.movie.services import get_movieids, get_random_movie
 from app.services import JWTAuth
 
@@ -24,13 +24,14 @@ class MovieController:
         """
         try :
             identity = JWTAuth.get_user_identity()
-            
+            data = request
             form = MovieForm()
             if form.validate_on_submit():
                 language = form.languages.data
                 geners = form.movie_geners.data
                 movie_ids = get_movieids(language, geners)
                 (
+                    movie_id,
                     movie_name,
                     movie_lan,
                     movie_genre,
@@ -40,6 +41,7 @@ class MovieController:
                 ) = get_random_movie(movie_ids)
                 
                 movie_details = {
+                    "id" : movie_id,
                     "name": movie_name,
                     "geners": movie_genre,
                     "languages": movie_lan,
@@ -57,6 +59,23 @@ class MovieController:
             logging.error("Error while suggesting movie %s",e )
 
         return render_template("movie/index.html", form=form,username=identity)
+    def show_movie(self):
+        try:
+            identity = JWTAuth.get_user_identity()
+            form = WishlistMovieForm()
+            if form.is_submitted():
+
+
+                pass 
+            elif request.method == "GET":
+                form_data = request.form()
+
+                pass 
+
+
+
+        except Exception as e :
+            pass
             
         
             

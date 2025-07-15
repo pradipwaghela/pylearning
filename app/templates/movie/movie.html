@@ -1,33 +1,9 @@
-{% extends "base.html" %} {% block content %}
-<div>
-    <h2>Movie Details :-</h2>
-    {% if  movie  %}
-    <table>
-      <tr>
-        <td>Movie Name :-</td>
-        <td>{{ movie.name }}</td>
-      </tr>
-      <tr>
-        <td>Movie Geners :-</td>
-        <td>{{ movie.geners }}</td>
-      </tr>
-      <tr>
-        <td>Movie Languages :-</td>
-        <td>{{ movie.languages }}</td>
-      </tr>
-      <tr>
-        <td>Movie Director :-</td>
-        <td>{{ movie.director }}</td>
-      </tr>
-      <tr>
-        <td>IMDB Rating :-</td>
-        <td>{{ movie.rating }}</td>
-      </tr>
-      <tr>
-        <td>Movie URL :-</td>
-        <td><a href="{{ movie.url }}"> {{ movie.name }} </a></td>
-      </tr>
-    </table>
-    {% endif %}
-  </div>
+{% extends "base.html" %} 
+{% import "render_dict_data.html" as renderer %}
+
+{% block content %}
+<form action="" method="post">
+{{ renderer.render_dict(movie) }}
+<input class="btn btn-primary mb-3" id="submit" name="submit" type="submit" value="Add to watchlist">
+</form>
 {% endblock %}

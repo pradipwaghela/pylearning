@@ -4,7 +4,7 @@ movie_suggest -> Main blue print
 
 """
 import logging
-from flask import Blueprint, redirect, url_for
+from flask import Blueprint, redirect, url_for,request
 from flask_jwt_extended import jwt_required, set_access_cookies
 
 from app.extensions import (jwt , csrf)
@@ -53,3 +53,11 @@ def index():
         render_template: Render home page
     """
     return MovieController.get_movie()
+
+@movie_suggest.route("/suggest",methods=['Post','Get'])
+def add_wishlist():
+    return MovieController.show_wishlist()
+@movie_suggest.route("/show",methods=["Post"])
+def show_movie():
+    data = request
+    
