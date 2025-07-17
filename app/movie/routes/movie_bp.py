@@ -57,7 +57,8 @@ def index():
 @movie_suggest.route("/suggest",methods=['Post','Get'])
 def add_wishlist():
     return MovieController.show_wishlist()
-@movie_suggest.route("/show",methods=["Post"])
+@movie_suggest.route("/show",methods=["Post","GET"])
 def show_movie():
-    data = request
+    data = request.args.get("movie")
+    print(f"Data {data}")
     

@@ -7,7 +7,7 @@ class WishlistMovieForm(FlaskForm):
         csrf = True
         csrf_class = JWTCSRF 
     
-    movie_id = StringField("Movie Id",render_kw={'hidden':True})
+    movie_id = StringField("Movie Id",render_kw= {'style': 'display: none'})
     name = StringField("Name",render_kw={'readonly':True})
     geners = StringField("Geners",render_kw={'readonly':True})
     languages = StringField("Languages",render_kw={'readonly':True})

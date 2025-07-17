@@ -15,7 +15,15 @@ class UserDAO(BaseDAO):
             "password" :0
         }
         return BaseDAO.find_one(self,query=query,projection=projection)
-    
+    def get_user_id(self,username):
+        query = {
+            'username' : username
+        }
+        projection = {
+            "_id" : 1
+        }
+        return BaseDAO.find_one(self,query=query,projection=projection)
+        
     def get_user_by_email(self,email):
         query = {
             "email" : email
