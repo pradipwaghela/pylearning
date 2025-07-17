@@ -7,6 +7,7 @@ from flask import render_template, flash, request, redirect, url_for
 from app.movie.forms import MovieForm,WishlistMovieForm
 from app.movie.services import get_movieids, get_random_movie
 from app.services import JWTAuth
+from app.movie.models import MovieDAO
 
 class MovieController:
     """
@@ -23,10 +24,9 @@ class MovieController:
             render_template: Render home page
         """
         try :
-            identity = JWTAuth.get_user_identity()
-            data = request
             form = MovieForm()
             wishlistform = WishlistMovieForm()
+            identity = JWTAuth.get_user_identity()
             if form.validate_on_submit():
                 language = form.languages.data
                 geners = form.movie_geners.data
@@ -49,26 +49,43 @@ class MovieController:
                 wishlistform.rating.data = movie_imdb_rating
                 wishlistform.url.data = movie_url
 
-                # movie_details = {
-                #     "id" : movie_id,
-                #     "name": movie_name,
-                #     "geners": movie_genre,
-                #     "languages": movie_lan,
-                #     "director": movie_creator,
-                #     "rating": movie_imdb_rating,
-                #     "url": movie_url,
-                # }
-                return render_template("movie/movie.html", form=wishlistform,username=identity)
-            if wishlistform.is_submitted():
-                formdata = wishlistform.data
-                movie_id = formdata.get("movie_id")
-                movie_name = formdata.get("name")
-                movie_lan =formdata.get("languages")
-                movie_genre = formdata.get("geners")
-                movie_creator = formdata.get("director")
-                movie_url = formdata.get("url")
-                movie_imdb_rating =formdata.get("rating")
-                # return redirect(url_for('movie_suggest.show_movie',movie=movie_details))
+                movie_details = {
+                    "id" : movie_id,
+                    "name": movie_name,
+                    "geners": movie_genre,
+                    "languages": movie_lan,
+                    "director": movie_creator,
+                    "rating": movie_imdb_rating,
+                    "url": movie_url,
+                }
+                # return render_template("movie/movie.html", form=wishlistform,username=identity)
+                return render_template("movie/movie.html",  movie=movie_details,username=identity)
+            # if wishlistform.is_submitted():
+            #     movie_dao = MovieDAO(username=identity)
+            #     formdata = wishlistform.data
+            #     movie_id = formdata.get("movie_id")
+            #     movie_name = formdata.get("name")
+            #     movie_lan =formdata.get("languages")
+            #     movie_genre = formdata.get("geners")
+            #     movie_creator = formdata.get("director")
+            #     movie_url = formdata.get("url")
+            #     movie_imdb_rating =formdata.get("rating")
+            #     if movie_dao.check_wishlist_movie(movie_id):
+            #         flash("Movie already added to the wishlist")
+            #     else:
+            #         movie_data = {
+            #         "imdb_id" : formdata.get("movie_id"),
+            #         "movie_name" : formdata.get("name"),
+            #         "movie_lan" : formdata.get("languages"),
+            #         "movie_genre" : formdata.get("geners"),
+            #         "movie_creator" : formdata.get("director"),
+            #         "movie_url" : formdata.get("url"),
+            #         "movie_imdb_rating" : formdata.get("rating")}
+            #         inserted =  movie_dao.add_movie_wishlist(movie_data)
+            #         if inserted.acknowledged :
+            #             flash("Movie added to your wishlist")
+            #     return render_template("movie/movie.html", form=wishlistform,username=identity)
+            return render_template("movie/index.html", form=form,username=identity)
         except TypeError :
             flash("No Movie found for selected input")
             logging.debug("No movie found for selected input")
