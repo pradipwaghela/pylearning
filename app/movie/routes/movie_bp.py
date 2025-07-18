@@ -54,9 +54,11 @@ def index():
     """
     return MovieController.get_movie()
 
-@movie_suggest.route("/suggest",methods=['Post','Get'])
+@movie_suggest.route("/movie/add",methods=['Post','Get'])
+@csrf.exempt
 def add_wishlist():
-    return MovieController.show_wishlist()
+    return MovieController.add_wishlist()
+
 @movie_suggest.route("/show",methods=["Post","GET"])
 def show_movie():
     data = request.args.get("movie")

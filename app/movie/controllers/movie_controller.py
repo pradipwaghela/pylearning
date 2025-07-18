@@ -58,33 +58,8 @@ class MovieController:
                     "rating": movie_imdb_rating,
                     "url": movie_url,
                 }
-                # return render_template("movie/movie.html", form=wishlistform,username=identity)
-                return render_template("movie/movie.html",  movie=movie_details,username=identity)
-            # if wishlistform.is_submitted():
-            #     movie_dao = MovieDAO(username=identity)
-            #     formdata = wishlistform.data
-            #     movie_id = formdata.get("movie_id")
-            #     movie_name = formdata.get("name")
-            #     movie_lan =formdata.get("languages")
-            #     movie_genre = formdata.get("geners")
-            #     movie_creator = formdata.get("director")
-            #     movie_url = formdata.get("url")
-            #     movie_imdb_rating =formdata.get("rating")
-            #     if movie_dao.check_wishlist_movie(movie_id):
-            #         flash("Movie already added to the wishlist")
-            #     else:
-            #         movie_data = {
-            #         "imdb_id" : formdata.get("movie_id"),
-            #         "movie_name" : formdata.get("name"),
-            #         "movie_lan" : formdata.get("languages"),
-            #         "movie_genre" : formdata.get("geners"),
-            #         "movie_creator" : formdata.get("director"),
-            #         "movie_url" : formdata.get("url"),
-            #         "movie_imdb_rating" : formdata.get("rating")}
-            #         inserted =  movie_dao.add_movie_wishlist(movie_data)
-            #         if inserted.acknowledged :
-            #             flash("Movie added to your wishlist")
-            #     return render_template("movie/movie.html", form=wishlistform,username=identity)
+                return render_template("movie/movie.html", form=wishlistform,username=identity)
+                # return render_template("movie/movie.html",  movie=movie_details,username=identity)
             return render_template("movie/index.html", form=form,username=identity)
         except TypeError :
             flash("No Movie found for selected input")
@@ -113,5 +88,34 @@ class MovieController:
         except Exception as e :
             pass
             
-        
+    def add_wishlist(self):
+        identity = JWTAuth.get_user_identity()
+        wishlistform = WishlistMovieForm()
+        methods = request.method
+        if wishlistform.is_submitted():
+                movie_dao = MovieDAO(username=identity)
+                formdata = wishlistform.data
+                movie_id = formdata.get("movie_id")
+                movie_name = formdata.get("name")
+                movie_lan =formdata.get("languages")
+                movie_genre = formdata.get("geners")
+                movie_creator = formdata.get("director")
+                movie_url = formdata.get("url")
+                movie_imdb_rating =formdata.get("rating")
+                if movie_dao.check_wishlist_movie(movie_id):
+                    flash("Movie already added to the wishlist")
+                else:
+                    movie_data = {
+                    "imdb_id" : formdata.get("movie_id"),
+                    "movie_name" : movie_name,
+                    "movie_lan" : movie_lan,
+                    "movie_genre" : movie_genre,
+                    "movie_creator" : movie_creator,
+                    "movie_url" : movie_url,
+                    "movie_imdb_rating" : movie_imdb_rating
+                    }
+                    inserted =  movie_dao.add_movie_wishlist(movie_data)
+                    if inserted.acknowledged :
+                        flash("Movie added to your wishlist")
+        return render_template("movie/movie.html", form=wishlistform,username=identity)
             

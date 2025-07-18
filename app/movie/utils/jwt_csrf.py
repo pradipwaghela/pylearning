@@ -1,5 +1,5 @@
 from wtforms.csrf.core import CSRF
-from flask_jwt_extended import get_jwt
+from flask_jwt_extended import get_jwt,verify_jwt_in_request
 from wtforms.form import BaseForm
 
 class JWTCSRF(CSRF):
@@ -18,7 +18,6 @@ class JWTCSRF(CSRF):
         """
         Get JWT http csrf string 
         """
-        
         token = get_jwt()
         csrf = token['csrf']
         return csrf

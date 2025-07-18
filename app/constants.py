@@ -12,6 +12,8 @@ User_Endpoints = {
     ],
     "protected" :[
         "/home",
-        "/signout"
+        "/signout",
+        "/movie/add",
+        "/user/*"
     ]
 }

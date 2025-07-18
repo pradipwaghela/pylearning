@@ -1,9 +1,9 @@
 {% extends "base.html" %} 
-<!-- {% import "render_dict_data.html" as renderer %} -->
+{% import "render_dict_data.html" as renderer %}
 {% import "bootstrap_wtf.html" as wtf %}
 
 {% block content %}
 <div class="col-5">
-    {{ wtf.quick_form(form) }}
+    {{ wtf.quick_form(form,action="/movie/add") }}
 </div>
 {% endblock %}
