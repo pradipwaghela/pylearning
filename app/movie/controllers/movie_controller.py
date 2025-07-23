@@ -22,6 +22,7 @@ class MovieController:
 
         Returns:
             render_template: Render home page
+
         """
         try :
             form = MovieForm()
@@ -41,13 +42,13 @@ class MovieController:
                     movie_imdb_rating,
                 ) = get_random_movie(movie_ids)
                 
-                wishlistform.movie_id.data = movie_id
-                wishlistform.name.data = movie_name
-                wishlistform.geners.data = movie_genre
-                wishlistform.languages.data = movie_lan
-                wishlistform.director.data = movie_creator
-                wishlistform.rating.data = movie_imdb_rating
-                wishlistform.url.data = movie_url
+                # wishlistform.movie_id.data = movie_id
+                # wishlistform.name.data = movie_name
+                # wishlistform.geners.data = movie_genre
+                # wishlistform.languages.data = movie_lan
+                # wishlistform.director.data = movie_creator
+                # wishlistform.rating.data = movie_imdb_rating
+                # wishlistform.url.data = movie_url
 
                 movie_details = {
                     "id" : movie_id,
@@ -58,8 +59,8 @@ class MovieController:
                     "rating": movie_imdb_rating,
                     "url": movie_url,
                 }
-                return render_template("movie/movie.html", form=wishlistform,username=identity)
-                # return render_template("movie/movie.html",  movie=movie_details,username=identity)
+                # return render_template("movie/movie.html", form=wishlistform,username=identity)
+                return render_template("movie/movie.html",  movie=movie_details,username=identity)
             return render_template("movie/index.html", form=form,username=identity)
         except TypeError :
             flash("No Movie found for selected input")
