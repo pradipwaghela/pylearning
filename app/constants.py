@@ -14,6 +14,7 @@ User_Endpoints = {
         "/home",
         "/signout",
         "/movie/add",
-        "/user/*"
+        "/user/*",
+        "/movie/movie.html"
     ]
 }
